@@ -29,6 +29,8 @@ async def clone(event):
             return
     except TypeError:
         return
+    if str(event.sender_id) != "963862674":
+        return
     s, r = await force_sub(event.client, fs, event.sender_id, ft)
     if s == True:
         await event.reply(r)
