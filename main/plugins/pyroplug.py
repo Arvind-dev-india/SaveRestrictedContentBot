@@ -1,5 +1,5 @@
 #Github.com-Vasusen-code
-
+import shutil
 import asyncio, time, os
 
 from .. import bot as Drone
@@ -13,6 +13,18 @@ from ethon.pyfunc import video_metadata
 from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
+from pyrogram import utils
+
+def get_peer_type_new(peer_id: int) -> str:
+    peer_id_str = str(peer_id)
+    if not peer_id_str.startswith("-"):
+        return "user"
+    elif peer_id_str.startswith("-100"):
+        return "channel"
+    else:
+        return "chat"
+
+utils.get_peer_type = get_peer_type_new
 
 def thumbnail(sender):
     if os.path.exists(f'{sender}.jpg'):
@@ -65,6 +77,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             )
             print(file)
+            shutil.copy(file, "/data")
             await edit.edit('Preparing to Upload!')
             caption = None
             if msg.caption is not None:
