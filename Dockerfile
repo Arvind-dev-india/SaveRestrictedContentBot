@@ -1,4 +1,6 @@
 FROM python:3.9.2-slim-buster
+# Create /data directory with necessary permissions
+RUN mkdir /data && chmod 777 /data
 RUN mkdir /app && chmod 777 /app
 WORKDIR /app
 ENV DEBIAN_FRONTEND=noninteractive
