@@ -82,7 +82,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             base_name = os.path.basename(file) 
             file_name, file_extension = os.path.splitext(base_name) 
             new_file_name = f"{timestamp}_{file_name}{file_extension}"
-            destination_path = os.path.join("/data/linked_downloads/", new_file_name)
+            destination_path = os.path.join("/data/", new_file_name)
             shutil.copy(file, destination_path)
             print(f"File copied to: {destination_path}")
             await edit.edit('Preparing to Upload!')
