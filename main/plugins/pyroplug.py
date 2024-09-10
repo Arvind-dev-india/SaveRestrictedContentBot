@@ -1,5 +1,6 @@
 #Github.com-Vasusen-code
 import shutil
+from datetime import datetime
 import asyncio, time, os
 
 from .. import bot as Drone
@@ -77,8 +78,16 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             )
             print(file)
-            shutil.copy(file, "/data")
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            base_name = os.path.basename(file) 
+            file_name, file_extension = os.path.splitext(base_name) 
+            new_file_name = f"{timestamp}_{file_name}{file_extension}"
+            destination_path = os.path.join("/data/linked_downloads/", new_file_name)
+            shutil.copy(file, destination_path)
+            print(f"File copied to: {destination_path}")
             await edit.edit('Preparing to Upload!')
+            await edit.delete()
+            return
             caption = None
             if msg.caption is not None:
                 caption = msg.caption
